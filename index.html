@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Adaptive Hilbert Diffusion Models for Controllable Smoothness in Continuous Function Generation">
+  <meta property="og:title" content="Adaptive Hilbert Diffusion Models"/>
+  <meta property="og:description" content="Adaptive Hilbert Diffusion Models for Controllable Smoothness in Continuous Function Generation"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <meta property="og:image" content="static/images/overview.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="twitter:title" content="Adaptive Hilbert Diffusion Models">
+  <meta name="twitter:description" content="Controllable Smoothness in Continuous Function Generation via Adaptive Hilbert Diffusion Models">
+  <meta name="twitter:image" content="static/images/overview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="diffusion model, Hilbert space, Gaussian process, smoothness controllability, motion generation, continuous function generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Adaptive HDM</title>
+  <link rel="icon" type="image/x-icon" href="static/images/rilab.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <style>
+    .lens-label {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #363636;
+    }
+    .lens-value {
+      display: inline-block;
+      background: #3273dc;
+      color: white;
+      border-radius: 4px;
+      padding: 2px 10px;
+      font-family: 'Castoro', monospace;
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .lens-desc {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 0.6rem;
+    }
+    .comparison-label {
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+    .label-ours {
+      background: #23d160;
+      color: white;
+    }
+    .label-others {
+      background: #ff3860;
+      color: white;
+    }
+    .section-divider {
+      border: none;
+      border-top: 2px solid #f0f0f0;
+      margin: 0;
+    }
+    .gif-grid img {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #eee;
+    }
+    .gif-grid-item {
+      padding: 4px;
+    }
+    .lens-arrow {
+      font-size: 2rem;
+      color: #3273dc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .smooth-badge {
+      font-size: 0.78rem;
+      color: #3273dc;
+      font-style: italic;
+    }
+    .sharp-badge {
+      font-size: 0.78rem;
+      color: #ff3860;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- ========== HERO / TITLE ========== -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            Adaptive Hilbert Diffusion Models for Controllable Smoothness in Continuous Function Generation
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://sites.google.com/view/taehyun-byun" target="_blank">Taehyun Byun</a>*<sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#" target="_blank">Seulbi Lee</a>*<sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#" target="_blank">Kyungjae Lee</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#" target="_blank">Sangheum Hwang</a><sup>2</sup>&#8224;,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/sungjoon-choi/home" target="_blank">Sungjoon Choi</a><sup>1</sup>&#8224;
+            </span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top:0.5rem;">
+            <span class="eql-cntrb">* Equal contribution &nbsp;&nbsp; &#8224; Corresponding authors</span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top:0.5rem; color:#555;">
+            <span class="author-block"><sup>1</sup> Department of Artificial Intelligence, Korea University</span>&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup> Department of Data Science, Seoul National University of Science and Technology</span>&nbsp;&nbsp;
+            <span class="author-block"><sup>3</sup> Department of Statistics, Korea University</span>
+          </div>
+
+          <div class="column has-text-centered" style="margin-top:1rem;">
+            <div class="publication-links">
+
+              <!-- Paper PDF link (placeholder) -->
+              <span class="link-block">
+                <a href="#" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <!-- GitHub link -->
+              <span class="link-block">
+                <a href="https://github.com/childtoy/Adaptive-HDM" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== ABSTRACT ========== -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            <!-- TODO: 실제 논문 abstract로 교체해주세요 -->
+            Diffusion models have demonstrated remarkable success in generating high-quality samples
+            across diverse domains. However, most existing methods operate in fixed Euclidean spaces
+            and lack mechanisms to control the <em>smoothness</em> of generated outputs.
+            We propose <strong>Adaptive Hilbert Diffusion Models (Adaptive-HDM)</strong>, a novel
+            framework that formulates diffusion in an infinite-dimensional Hilbert function space
+            induced by a Gaussian process kernel. By treating the kernel length-scale (lens parameter
+            &ell;) as a controllable hyper-parameter, our model enables users to explicitly regulate
+            the smoothness of generated continuous functions at inference time — ranging from highly
+            smooth to rapidly varying trajectories — without retraining.
+            We apply Adaptive-HDM to text-conditioned human motion generation and demonstrate that
+            the proposed controllability is orthogonal to semantic fidelity: the generated motions
+            faithfully follow text prompts while exhibiting the desired smoothness level.
+            Quantitative evaluations confirm that Adaptive-HDM matches or surpasses existing baselines
+            in generation quality metrics, while uniquely offering smoothness controllability that
+            prior work cannot provide.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="section-divider">
+
+
+<!-- ========== OVERVIEW ========== -->
+<section class="section hero has-background-white">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <img src="static/images/overview.png" alt="Overview of Adaptive-HDM" class="overview-image"/>
+        <div class="content has-text-justified" style="margin-top:1rem;">
+          <p>
+            Adaptive-HDM formulates the forward and reverse diffusion processes on a Hilbert function
+            space governed by a Gaussian process kernel. The lens parameter &ell; controls the
+            smoothness of the kernel, thereby allowing users to continuously interpolate between
+            smooth (<em>small &ell;</em>) and sharp (<em>large &ell;</em>) generated outputs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="section-divider">
+
+
+<!-- ========== CONTROLLABILITY DEMO ========== -->
+<section class="section hero has-background-white">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Smoothness Controllability</h2>
+        <p class="subtitle is-5" style="color:#555;">
+          By adjusting the lens parameter &ell;, users can continuously control the smoothness of
+          generated motions — a capability unique to Adaptive-HDM.
+        </p>
+      </div>
+    </div>
+
+    <!-- Lens spectrum bar -->
+    <div class="columns is-centered has-text-centered" style="margin-bottom:1.5rem; align-items:center;">
+      <div class="column is-narrow">
+        <span class="smooth-badge">&#9670; Smooth (small &ell;)</span>
+      </div>
+      <div class="column">
+        <div style="height:6px; background:linear-gradient(to right, #3273dc, #23d160, #ffdd57, #ff3860); border-radius:4px;"></div>
+      </div>
+      <div class="column is-narrow">
+        <span class="sharp-badge">Sharp (large &ell;) &#9670;</span>
+      </div>
+    </div>
+
+    <!-- 4-column grid: one per lens value -->
+    <div class="columns is-centered">
+
+      <!-- ℓ = 0.03 -->
+      <div class="column has-text-centered">
+        <div class="lens-value">&ell; = 0.03</div>
+        <div class="lens-desc smooth-badge">Very smooth</div>
+        <div class="gif-grid">
+          <div class="gif-grid-item"><img src="static/images/lens_003.gif" alt="lens 0.03 sample 0"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens003_0.gif" alt="lens 0.03 sample 1"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens003_1.gif" alt="lens 0.03 sample 2"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens003_2.gif" alt="lens 0.03 sample 3"/></div>
+        </div>
+      </div>
+
+      <!-- ℓ = 0.24 -->
+      <div class="column has-text-centered">
+        <div class="lens-value" style="background:#23d160;">&ell; = 0.24</div>
+        <div class="lens-desc" style="font-size:0.85rem; color:#23d160; font-style:italic;">Moderately smooth</div>
+        <div class="gif-grid">
+          <div class="gif-grid-item"><img src="static/images/lens_024.gif" alt="lens 0.24 sample 0"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens024_0.gif" alt="lens 0.24 sample 1"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens024_1.gif" alt="lens 0.24 sample 2"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens024_2.gif" alt="lens 0.24 sample 3"/></div>
+        </div>
+      </div>
+
+      <!-- ℓ = 0.46 -->
+      <div class="column has-text-centered">
+        <div class="lens-value" style="background:#ffdd57; color:#363636;">&ell; = 0.46</div>
+        <div class="lens-desc" style="font-size:0.85rem; color:#b86200; font-style:italic;">Moderately sharp</div>
+        <div class="gif-grid">
+          <div class="gif-grid-item"><img src="static/images/lens_046.gif" alt="lens 0.46 sample 0"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens046_0.gif" alt="lens 0.46 sample 1"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens046_1.gif" alt="lens 0.46 sample 2"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens046_2.gif" alt="lens 0.46 sample 3"/></div>
+        </div>
+      </div>
+
+      <!-- ℓ = 1.00 -->
+      <div class="column has-text-centered">
+        <div class="lens-value" style="background:#ff3860;">&ell; = 1.00</div>
+        <div class="lens-desc sharp-badge">Very sharp</div>
+        <div class="gif-grid">
+          <div class="gif-grid-item"><img src="static/images/lens_100.gif" alt="lens 1.00 sample 0"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens100_0.gif" alt="lens 1.00 sample 1"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens100_1.gif" alt="lens 1.00 sample 2"/></div>
+          <div class="gif-grid-item"><img src="static/images/addexp_lens100_2.gif" alt="lens 1.00 sample 3"/></div>
+        </div>
+      </div>
+
+    </div><!-- /columns -->
+  </div>
+</section>
+<hr class="section-divider">
+
+
+<!-- ========== COMPARISON ========== -->
+<section class="section hero has-background-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Comparison: Do Others Have Controllability?</h2>
+        <p class="subtitle is-5" style="color:#555; margin-bottom:2rem;">
+          Existing text-to-motion models generate a <em>single fixed style</em> of motion for the
+          same text prompt. Adaptive-HDM introduces the lens parameter &ell; that lets you select
+          any smoothness on demand — no retraining needed.
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-centered is-vcentered">
+
+      <!-- Others: no controllability -->
+      <div class="column has-text-centered">
+        <span class="comparison-label label-others">Other Methods</span>
+        <p style="margin-bottom:1rem; font-size:0.9rem; color:#555;">
+          Fixed smoothness — no knob to turn.<br>One style per prompt.
+        </p>
+        <div style="border:2px dashed #ff3860; border-radius:8px; padding:1rem; background:#fff5f7;">
+          <img src="static/images/addexp_lens024_0.gif"
+               style="width:70%; border-radius:6px;" alt="Other method result"/>
+          <p style="font-size:0.82rem; color:#aaa; margin-top:0.5rem;">
+            only one smoothness level available
+          </p>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="column is-narrow lens-arrow">
+        VS
+      </div>
+
+      <!-- Ours: controllable -->
+      <div class="column has-text-centered">
+        <span class="comparison-label label-ours">Adaptive-HDM (Ours)</span>
+        <p style="margin-bottom:1rem; font-size:0.9rem; color:#555;">
+          Tune &ell; to get the smoothness you want — same prompt, different styles.
+        </p>
+        <div style="border:2px solid #23d160; border-radius:8px; padding:1rem; background:#f6fffa;">
+          <div class="columns is-mobile is-multiline" style="margin:0;">
+            <div class="column is-half" style="padding:4px; text-align:center;">
+              <img src="static/images/lens_003.gif" style="width:100%; border-radius:4px;" alt="ours lens 0.03"/>
+              <p style="font-size:0.75rem; color:#3273dc; margin-top:2px;">&ell; = 0.03</p>
+            </div>
+            <div class="column is-half" style="padding:4px; text-align:center;">
+              <img src="static/images/lens_024.gif" style="width:100%; border-radius:4px;" alt="ours lens 0.24"/>
+              <p style="font-size:0.75rem; color:#23d160; margin-top:2px;">&ell; = 0.24</p>
+            </div>
+            <div class="column is-half" style="padding:4px; text-align:center;">
+              <img src="static/images/lens_046.gif" style="width:100%; border-radius:4px;" alt="ours lens 0.46"/>
+              <p style="font-size:0.75rem; color:#b86200; margin-top:2px;">&ell; = 0.46</p>
+            </div>
+            <div class="column is-half" style="padding:4px; text-align:center;">
+              <img src="static/images/lens_100.gif" style="width:100%; border-radius:4px;" alt="ours lens 1.00"/>
+              <p style="font-size:0.75rem; color:#ff3860; margin-top:2px;">&ell; = 1.00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<hr class="section-divider">
+
+
+<!-- ========== BIBTEX ========== -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{byun2025adaptivehdm,
+  title     = {Adaptive Hilbert Diffusion Models for Controllable Smoothness in Continuous Function Generation},
+  author    = {Byun, Taehyun and Lee, Seulbi and Lee, Kyungjae and Hwang, Sangheum and Choi, Sungjoon},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This page was built using the
+            <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">
+              Academic Project Page Template
+            </a>
+            adopted from the
+            <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+              Creative Commons Attribution-ShareAlike 4.0 International License
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
