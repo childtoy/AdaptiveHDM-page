@@ -219,16 +219,16 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
-        <h2 class="title is-3">Smoothness Controllability</h2>
+        <h2 class="title is-3">Motion Velocity Controllability</h2>
         <div class="content" style="max-width:800px; margin:0 auto 1.5rem;">
           <p style="color:#444; font-size:1rem;">
-            Adaptive-HDM uses a Squared Exponential kernel whose <strong>length parameter &ell;</strong>
-            directly governs temporal correlation decay in the Hilbert space.
-            A <strong>small &ell;</strong> produces rapidly decaying correlations,
-            allowing high-frequency local variation (more dynamic motions).
-            A <strong>large &ell;</strong> enforces long-range dependency and suppresses
-            high-frequency components, yielding significantly smoother outputs.
-            At inference time, the user simply specifies &ell; — no retraining, no smoothness labels required.
+            Adaptive-HDM injects <strong>correlated noise into the root XZ trajectory</strong>
+            using a Squared Exponential kernel parameterized by the length parameter &ell;.
+            A <strong>small &ell;</strong> produces rapidly-varying (dynamic) correlated noise,
+            which drives the denoising process toward high-velocity root trajectories.
+            A <strong>large &ell;</strong> produces slowly-varying (smooth) correlated noise,
+            resulting in low-velocity, subtle root motion.
+            At inference time, the user simply specifies &ell; — no retraining or velocity labels required.
           </p>
         </div>
       </div>
@@ -236,9 +236,9 @@
 
     <!-- Lens spectrum bar -->
     <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; max-width:900px; margin-left:auto; margin-right:auto;">
-      <span class="sharp-badge" style="white-space:nowrap;">&#9670; Dynamic (small &ell;)</span>
+      <span class="sharp-badge" style="white-space:nowrap;">&#9670; High velocity (small &ell;)</span>
       <div style="flex:1; height:6px; background:linear-gradient(to right, #ff3860, #ffdd57, #23d160, #3273dc); border-radius:4px;"></div>
-      <span class="smooth-badge" style="white-space:nowrap;">Smooth (large &ell;) &#9670;</span>
+      <span class="smooth-badge" style="white-space:nowrap;">Low velocity (large &ell;) &#9670;</span>
     </div>
 
     <!-- Table: prompt label + 4 GIFs per row -->
@@ -250,19 +250,19 @@
             <th style="width:160px;"></th>
             <th class="has-text-centered">
               <div class="lens-value" style="background:#ff3860;">&ell; = 0.03</div>
-              <div class="lens-desc sharp-badge">Dynamic</div>
+              <div class="lens-desc sharp-badge">High velocity</div>
             </th>
             <th class="has-text-centered">
               <div class="lens-value" style="background:#ffdd57; color:#363636;">&ell; = 0.24</div>
-              <div class="lens-desc" style="font-size:0.85rem; color:#b86200; font-style:italic;">Mod. dynamic</div>
+              <div class="lens-desc" style="font-size:0.85rem; color:#b86200; font-style:italic;">Mod. high vel.</div>
             </th>
             <th class="has-text-centered">
               <div class="lens-value" style="background:#23d160;">&ell; = 0.46</div>
-              <div class="lens-desc" style="font-size:0.85rem; color:#23d160; font-style:italic;">Mod. smooth</div>
+              <div class="lens-desc" style="font-size:0.85rem; color:#23d160; font-style:italic;">Mod. low vel.</div>
             </th>
             <th class="has-text-centered">
               <div class="lens-value" style="background:#3273dc;">&ell; = 1.00</div>
-              <div class="lens-desc smooth-badge">Smooth</div>
+              <div class="lens-desc smooth-badge">Low velocity</div>
             </th>
           </tr>
         </thead>
